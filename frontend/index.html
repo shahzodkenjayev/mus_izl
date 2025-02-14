@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>Fayl boshqarish</title>
+</head>
+<body>
+
+<h2>Fayl ma’lumotlarini qo‘shish</h2>
+<form id="fileForm">
+    <input type="text" name="file_path" placeholder="Fayl yo‘li (C:\Users\...)" required>
+    <input type="text" name="file_name" placeholder="Fayl nomi" required>
+    <input type="number" name="role" placeholder="Ruxsat darajasi (1-20)" required>
+    <input type="hidden" name="add_file" value="1">
+    <button type="submit">Saqlash</button>
+</form>
+
+<h2>Mening fayllarim</h2>
+<button onclick="loadUserFiles()">Yuklash</button>
+<table id="fileTable" border="1">
+    <tr><th>Nomi</th><th>Yo‘li</th><th>Roli</th><th>Vaqti</th><th>O‘chirish</th></tr>
+</table>
+
+<script>
+document.getElementById("fileForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    fetch("/backend/controllers/FileController.php", {
+        method: "POST",
+        body: new FormData(this)
+    }).then(response => response.text()).then(data => alert(data));
+});
+
+function loadUserFiles() {
+    fetch("/backend/controllers/FileController.php?user_files=1")
+        .then(response => response.json())
+        .then(files => {
+            let table = document.getElementById("fileTable");
+            table.innerHTML = "<tr><th>Nomi</th><th>Yo‘li</th><th>Roli</th><th>Vaqti</th><th>O‘chirish</th></tr>";
+            files.forEach(file => {
+                table.innerHTML += `<tr>
+                    <td>${file.file_name}</td>
+                    <td>${file.file_path}</td>
+                    <td>${file.role}</td>
+                    <td>${file.created_at}</td>
+                    <td><button onclick="deleteFile(${file.id})">🗑</button></td>
+                </tr>`;
+            });
+        });
+}
+
+function deleteFile(id) {
+    fetch("/backend/controllers/FileController.php", {
+        method: "POST",
+        body: new URLSearchParams({delete_file: 1, file_id: id})
+    }).then(response => response.text()).then(data => alert(data));
+}
+</script>
+
+</body>
+</html>
