@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packet Blocker</title>
+</head>
+<body>
+    <h1>Welcome, {{ current_user.username }}</h1>
+    <a href="{{ url_for('logout') }}">Logout</a>
+    <h2>Blocked Keywords</h2>
+    <ul>
+        {% for keyword in keywords %}
+            <li>{{ keyword }} <a href="{{ url_for('delete_keyword', keyword=keyword) }}">Delete</a></li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add a New Keyword</h2>
+    <form method="POST" action="{{ url_for('add_keyword') }}">
+        <label for="keyword">Keyword:</label>
+        <input type="text" id="keyword" name="keyword" required>
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>

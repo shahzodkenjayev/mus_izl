@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+</head>
+<body>
+    <h1>Admin Panel</h1>
+    <h2>Bloklanadigan Terminlar</h2>
+    <ul id="terms">
+        {% for term in terms %}
+        <li>{{ term }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Yangi Termin Qo'shish</h2>
+    <form action="/add_term" method="POST">
+        <input type="text" name="term" placeholder="Terminni kiriting" required>
+        <button type="submit">Qo'shish</button>
+    </form>
+
+    <h2>Termin O'chirish</h2>
+    <form action="/remove_term" method="POST">
+        <input type="text" name="term" placeholder="Terminni kiriting" required>
+        <button type="submit">O'chirish</button>
+    </form>
+
+    <h2>Internetni Boshqarish</h2>
+    <form action="/toggle_internet" method="POST">
+        <button name="action" value="block">Internetni Cheklash</button>
+        <button name="action" value="allow">Internetga Ruxsat</button>
+    </form>
+</body>
+</html>

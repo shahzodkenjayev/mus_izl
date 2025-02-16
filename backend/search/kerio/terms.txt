@@ -1,0 +1,5 @@
+malware
+phishing
+blockedsite
+ads
+netsh advfirewall

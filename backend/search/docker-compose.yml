@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  flask:
+    build:
+      context: .
+      dockerfile: D:/apt/python/dis1/flask/Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mitmproxy
+    networks:
+      - app-network
+
+  mitmproxy:
+    build:
+      context: .
+      dockerfile: D:/apt/python/dis1/google/Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,12 @@
+/* Style for the pages */
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1, h2 {
+    color: #2E3A59;
+}
+
+form {
+    margin: 20px;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+</head>
+<body>
+    <h2>Admin Panel</h2>
+    <h3>Bloklangan terminlar:</h3>
+    <ul>
+        {% for term in terms %}
+        <li>{{ term }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Yangi termin qo'shish</h3>
+    <form method="POST">
+        <label for="term">Termin:</label><br>
+        <input type="text" id="term" name="term" required><br><br>
+
+        <label for="expiry_time">Amal qilish vaqti (masalan, "1 soat"):</label><br>
+        <input type="text" id="expiry_time" name="expiry_time" required><br><br>
+
+        <input type="submit" value="Qo‘shish">
+    </form>
+    <br>
+    <a href="{{ url_for('login') }}">Logout</a>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Traffic Filter</title>
+</head>
+<body>
+    <h1>Network Traffic Filter</h1>
+
+    <!-- Terminlar -->
+    <h2>Manage Blocked Terms</h2>
+    <form action="/add_term" method="POST">
+        <input type="text" name="term" placeholder="Add Term" required>
+        <button type="submit">Add Term</button>
+    </form>
+    <ul>
+        {% for term in terms %}
+            <li>
+                {{ term }} 
+                <form action="/remove_term" method="POST" style="display:inline;">
+                    <input type="hidden" name="term" value="{{ term }}">
+                    <button type="submit">Remove Term</button>
+                </form>
+                <form action="/disable_term" method="POST" style="display:inline;">
+                    <input type="hidden" name="term" value="{{ term }}">
+                    <button type="submit">Disable Term</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Disabled Terms</h2>
+    <ul>
+        {% for term in disabled_terms %}
+            <li>
+                {{ term }}
+                <form action="/enable_term" method="POST" style="display:inline;">
+                    <input type="hidden" name="term" value="{{ term }}">
+                    <button type="submit">Enable Term</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- IP bloklash -->
+    <h2>Manage Blocked IPs</h2>
+    <form action="/add_ip" method="POST">
+        <input type="text" name="ip" placeholder="Add IP" required>
+        <button type="submit">Add IP</button>
+    </form>
+    <ul>
+        {% for ip in blocked_ips %}
+            <li>
+                {{ ip }}
+                <form action="/remove_ip" method="POST" style="display:inline;">
+                    <input type="hidden" name="ip" value="{{ ip }}">
+                    <button type="submit">Remove IP</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Port qoidalari -->
+    <h2>Manage Port Rules</h2>
+    <form action="/add_port_rule" method="POST">
+        <input type="number" name="port" placeholder="Port" required>
+        <select name="action" required>
+            <option value="allow">Allow</option>
+            <option value="block">Block</option>
+        </select>
+        <button type="submit">Add Port Rule</button>
+    </form>
+    <ul>
+        {% for port, action in port_rules.items() %}
+            <li>
+                Port: {{ port }} - Action: {{ action }}
+                <form action="/remove_port_rule" method="POST" style="display:inline;">
+                    <input type="hidden" name="port" value="{{ port }}">
+                    <button type="submit">Remove Port Rule</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

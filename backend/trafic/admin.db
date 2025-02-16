@@ -1,0 +1,22 @@
+import sqlite3
+
+# Bazani yaratish
+conn = sqlite3.connect(r'D:\apt\python\dis\admin1.db')
+#conn = sqlite3.connect('admin.db')
+cursor = conn.cursor()
+
+# Admin jadvali yaratish
+cursor.execute('''CREATE TABLE IF NOT EXISTS admin (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    username TEXT NOT NULL UNIQUE,
+                    password_hash TEXT NOT NULL)''')
+
+# Admin foydalanuvchini qo'shish (parolni xavfsiz tarzda saqlash)
+username = "admin"
+password_hash = generate_password_hash("admin")
+
+cursor.execute("INSERT INTO admin (username, password_hash) VALUES (?, ?)", (username, password_hash))
+
+# O'zgarishlarni saqlash
+conn.commit()
+conn.close()

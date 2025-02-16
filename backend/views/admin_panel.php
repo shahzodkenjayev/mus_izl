@@ -33,6 +33,8 @@
     <a href="view_user.php" class="btn">Ma'lmotlarni ko'rish va tahrirlash</a>
     <a href="add_user.php" class="btn">Foydalanuvchi qo'shish</a>
     <a href="view_user.php" class="btn">Foydalanuvchilarni ko'rish</a>
+    <a href="view_user.php" class="btn">Qidiruv tizimiga filter qo'shish</a>
+
 
 </body>
 </html>
